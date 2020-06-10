@@ -3,11 +3,13 @@ package com.example.douyinvideoplayer;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -27,6 +29,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.yqw.hotheart.HeartConstraintLayout;
+import com.yqw.hotheart.HeartViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     class Adapter extends RecyclerView.Adapter<ViewHolder> {
 
         List<String> list = new ArrayList<>();
@@ -130,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
             return new ViewHolder(view);
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
@@ -143,10 +149,27 @@ public class MainActivity extends AppCompatActivity {
             //Glide.with(mContext).load(mDataset.get(position).avatar).into(holder.vedioViewHead);
             //holder.videoView.start();
 
-            holder.videoView.setOnTouchListener(new View.OnTouchListener() {
 
+//            holder.videoView.setOnTouchListener(new View.OnTouchListener() {
+//
+//                @Override
+//                public boolean onTouch(View view, MotionEvent motionEvent) {
+//                    if (holder.videoView.isPlaying()){
+//                        holder.videoView.pause();
+//                        //holder.vedioViewHead.setVisibility(View.GONE);
+//                        //holder.btn_play.setVisibility(View.VISIBLE);
+//                    }else {
+//                        holder.videoView.start();
+//                        //holder.vedioViewHead.setVisibility(View.GONE);
+//                        //holder.btn_play.setVisibility(View.INVISIBLE);
+//                    }
+//                    return false;
+//                }
+//            });
+            holder.videoView.setOnTouchListener(new MyClickListener
+                    (new MyClickListener.MyClickCallBack() {
                 @Override
-                public boolean onTouch(View view, MotionEvent motionEvent) {
+                public void onSimpleClick() {
                     if (holder.videoView.isPlaying()){
                         holder.videoView.pause();
                         //holder.vedioViewHead.setVisibility(View.GONE);
@@ -156,9 +179,15 @@ public class MainActivity extends AppCompatActivity {
                         //holder.vedioViewHead.setVisibility(View.GONE);
                         //holder.btn_play.setVisibility(View.INVISIBLE);
                     }
-                    return false;
                 }
-            });
+
+                @Override
+                public void onDoubleClick() {
+
+                }
+            }));
+
+
 
             holder.videoView.start();
             //holder.vedioViewHead.setVisibility(View.GONE);
@@ -179,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     class ViewHolder extends RecyclerView.ViewHolder {
         VideoView videoView;
         public TextView nickname;
@@ -187,6 +217,8 @@ public class MainActivity extends AppCompatActivity {
         public TextView like;
         public TextView count;
         public TextView commit;
+        public HeartViewGroup heart;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -200,4 +232,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 }
+
+

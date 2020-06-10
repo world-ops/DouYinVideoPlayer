@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:uses-sdk="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/apk/distribution"
     package="com.example.douyinvideoplayer">
+
+    <uses-sdk
+        tools:overridelibrary='com.yqw.hotheart'
+        uses-sdk:ignore="MultipleUsesSdk"/>
 
     <application
         android:allowBackup="true"
@@ -18,6 +24,5 @@
         </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-
 
 </manifest>
